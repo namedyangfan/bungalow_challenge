@@ -5,8 +5,8 @@
           <v-layout row wrap>
               <v-flex v-bind:key="bungalow.id" v-for="bungalow in bungalows" xs12 sm6 lg4 pa-1>
                 <v-hover>
-                  <v-card flat tile slot-scope="{ hover }" >
-                      <v-carousel hide-delimiters :cycle="false" :hide-controls="hover ? false : true" :height='null' >
+                  <v-card flat tile slot-scope="{ hover }" height="100%">
+                      <v-carousel hide-delimiters :cycle="false" :hide-controls="hover ? false : true" :height="250" >
                         <v-carousel-item
                           v-for="(image,i) in bungalow.images"
                           :key    = "i"

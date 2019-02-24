@@ -1,16 +1,19 @@
 <template>
   <v-app>
     <v-content>
+      <Card v-bind:bungalows="bungalows"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import Card from './components/Card'
 import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
+    Card
   },
   data () {
     return {

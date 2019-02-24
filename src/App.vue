@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-btn color="success" v-on:click="changeSelectedCity('chicago')">Success</v-btn>
+    <Filters @changeSelectedCity="changeSelectedCity" />
     <template v-if="isLoading ">
       <v-container  fill-height>
         <div class="text-xs-center center-loading">
@@ -19,12 +19,14 @@
 
 <script>
 import Card  from './components/Card'
+import Filters  from './components/Filters'
 import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    Card
+    Card,
+    Filters
   },
   data () {
     return {
@@ -36,8 +38,8 @@ export default {
   },
   methods: {
     getBungalows: function(){
-      
-      let url = `https://fieldstone.bungalow.com/api/v1/listings/properties/?market__slug=${this.selectedCity}`
+
+      let url = `${process.env.VUE_APP_API_URL}listings/properties/?market__slug=${this.selectedCity}`
       this.isLoading = true
 
       axios.get(url)
@@ -53,8 +55,8 @@ export default {
       })
     },
 
-    changeSelectedCity: function(e) {
-      this.selectedCity = e
+    changeSelectedCity: function(city) {
+      this.selectedCity = city
       this.getBungalows()
     }
   },

@@ -16,11 +16,13 @@
                           :lazy   = "true"
                         ></v-carousel-item>
                       </v-carousel>
-                    <CardDescription v-bind:bungalowHeadline="bungalow.headline" v-bind:headline="bungalow.headline"
-                      v-bind:available_room_count="bungalow.available_room_count" 
-                      v-bind:total_room_count="bungalow.total_room_count"
-                      v-bind:room_prices="bungalow.room_prices"
-                      v-bind:earliest_available_date="bungalow.earliest_available_date"/>
+                    <CardDescription 
+                      :bungalowHeadline="bungalow.headline" 
+                      :headline="bungalow.headline"
+                      :available_room_count="bungalow.available_room_count" 
+                      :total_room_count="bungalow.total_room_count"
+                      :room_prices="bungalow.room_prices"
+                      :earliest_available_date="bungalow.earliest_available_date"/>
                   </v-card>
                 </v-hover>
               </v-flex>
@@ -39,8 +41,8 @@
       CardDescription
     },
     props: {
-      bungalows: Array,
-      cardHeight: Number,
+      bungalows  : Array,
+      cardHeight : Number,
     },
     data() {
       return {

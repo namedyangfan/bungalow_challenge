@@ -1,6 +1,7 @@
 <template>
-  <v-container fluid grid-list-xl>
-    <v-layout wrap>
+  <v-toolbar :light="true" :fixed="true" app flat>
+  <v-container mx-auto py-0>
+    <v-layout>
       <v-flex xs12 sm6 d-flex>
         <v-select
           :label="selectedCityStyled"
@@ -13,6 +14,7 @@
       </v-flex>
     </v-layout>
   </v-container>
+</v-toolbar>
 </template>
 
 <script>

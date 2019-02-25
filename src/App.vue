@@ -2,7 +2,7 @@
   <v-app>
     <Filters @changeSelectedCity="changeSelectedCity" :selectedCity="selectedCity"/>
     <template v-if="isLoading ">
-      <v-container  fill-height>
+      <v-container fill-height>
         <div class="text-xs-center center-loading">
           <v-progress-circular :size="100" color="primary" indeterminate>
           </v-progress-circular>
@@ -10,8 +10,8 @@
     </v-container>
     </template>
     <template v-else>
-      <v-content>
-        <Card v-bind:bungalows="bungalows"/>
+      <v-content pt-60>
+          <Card v-bind:bungalows="bungalows"/>
       </v-content>
     </template>
   </v-app>

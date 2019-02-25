@@ -26,11 +26,11 @@
     </v-layout>
     <v-layout row>
       <v-flex shrink pl-0 pb-0>
-        <template v-for="room in available_room_count" xs1>
-          <i class="material-icons room-icon teal--text font-weight-medium">person_outline</i>
-        </template>
         <template v-for="room in occupiedRoom" xs1>
-          <i class="material-icons room-icon grey--text text--lighten-1">person</i>
+          <i class="material-icons room-icon orange--text text--darken-3">person</i>
+        </template>
+        <template v-for="room in available_room_count" xs1>
+          <i class="material-icons room-icon orange--text text--darken-3 font-weight-medium">person_outline</i>
         </template>
       </v-flex>
       <v-flex grow pl-0 pb-0> 

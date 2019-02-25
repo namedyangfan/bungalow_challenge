@@ -2,17 +2,27 @@
   <v-toolbar :light="true" :fixed="true" app flat>
   <v-container mx-auto py-0>
     <v-layout>
-      <v-flex xs12 sm6 d-flex>
+      <v-flex sm1 md1 d-flex>
+        <v-img
+            :src="require('.././assets/logo.png')"
+            class="mr-5"
+            contain
+            min-width="50"
+            max-height="50"
+        />
+      </v-flex>
+      <v-flex sm11 md6 d-flex pt-1>
         <v-select 
           :label="selectedCityStyled"
-          :items="avaliableCitiesList"
+          :items="avaliableCitiesObj"
+          item-text="display_name"
+          item-value="slug"
           solo
           prepend-inner-icon="search"
           color="success"
           @change="changeSelectedCity"
-          v-model="selected" 
           autocomplete 
-          :search-input.sync="searchInput"
+          search-input.sync
         ></v-select>
       </v-flex>
     </v-layout>
@@ -33,8 +43,7 @@ export default {
 
   data () {
     return {
-      avaliableCitiesList : [],
-      avaliableCities     : null,
+      avaliableCitiesObj  : [],
       errors              : [],
     }
   },
@@ -46,8 +55,8 @@ export default {
   methods: {
 
     changeSelectedCity: function(city){
-      let cityValidate = city.replace(/\s+/g, '-').toLowerCase()
-      this.$emit('changeSelectedCity', cityValidate)
+      console.log(city)
+      this.$emit('changeSelectedCity', city)
     },
 
     getAvaliableCities: function(){
@@ -55,8 +64,10 @@ export default {
 
       axios.get(url)
       .then(response => {
-        this.avaliableCities = response.data.results
-        this.avaliableCitiesList = this.avaliableCities.map(city => city.internal_name)
+        this.avaliableCitiesObj = _.map(
+          response.data.results, function(currentObject) {
+            return _.pick(currentObject, "display_name", "slug");
+        });
       })
       .catch(e => {
         this.errors.push(e)

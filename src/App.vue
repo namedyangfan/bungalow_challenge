@@ -45,12 +45,10 @@ export default {
       .then(response => {
         this.bungalows = response.data.results
         this.isLoading = false
-        console.log(this.bungalows)
       })
       .catch(e => {
         this.errors.push(e)
         this.isLoading = false
-        console.log(this.errors)
       })
     },
 

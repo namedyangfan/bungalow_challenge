@@ -41,9 +41,7 @@ export default {
       let url = `${process.env.VUE_APP_API_URL}listings/properties/?market__slug=${this.selectedCity}`
       this.isLoading = true
 
-      axios.get(url, {
-        headers: {"Access-Control-Allow-Origin": "*"}
-      })
+      axios.get(url)
       .then(response => {
         this.bungalows = response.data.results
         this.isLoading = false

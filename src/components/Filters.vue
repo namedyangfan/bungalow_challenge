@@ -3,12 +3,12 @@
   <v-container mx-auto py-0>
     <v-layout>
       <v-flex xs12 sm6 d-flex>
-        <v-select
+        <v-select 
           :label="selectedCityStyled"
           :items="avaliableCitiesList"
-          item-value="initialv"
           solo
           prepend-inner-icon="search"
+          color="success"
           @change="changeSelectedCity"
         ></v-select>
       </v-flex>
@@ -69,5 +69,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .v-input {
+    font-weight: 800 !important;
+    font-size: 17px !important;
+  }
 </style>

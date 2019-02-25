@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Filters @changeSelectedCity="changeSelectedCity" />
+    <Filters @changeSelectedCity="changeSelectedCity" :selectedCity="selectedCity"/>
     <template v-if="isLoading ">
       <v-container  fill-height>
         <div class="text-xs-center center-loading">
@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     getBungalows: function(){
-
       let url = `${process.env.VUE_APP_API_URL}listings/properties/?market__slug=${this.selectedCity}`
       this.isLoading = true
 
@@ -56,6 +55,7 @@ export default {
     },
 
     changeSelectedCity: function(city) {
+      console.log('changeSelectedCity' + city.toLowerCase())
       this.selectedCity = city
       this.getBungalows()
     }

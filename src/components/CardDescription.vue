@@ -60,11 +60,11 @@
       }
     },
     props: {
-      headline: String,
-      available_room_count: Number,
-      total_room_count: Number,
-      room_prices: Array,
-      earliest_available_date: String
+      headline                : String,
+      available_room_count    : Number,
+      total_room_count        : Number,
+      room_prices             : Array,
+      earliest_available_date : String
     }
   }
 </script>

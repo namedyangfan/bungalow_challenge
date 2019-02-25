@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import Card  from './components/Card'
+import axios    from 'axios'
+import Card     from './components/Card'
 import Filters  from './components/Filters'
-import axios from 'axios'
 
 export default {
   name: 'App',
@@ -55,7 +55,6 @@ export default {
     },
 
     changeSelectedCity: function(city) {
-      console.log('changeSelectedCity' + city.toLowerCase())
       this.selectedCity = city
       this.getBungalows()
     }

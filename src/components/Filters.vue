@@ -17,11 +17,10 @@
 
 <script>
 import axios from 'axios'
+import _     from 'lodash'
 
 export default {
   name: 'Filters',
-  components: {
-  },
 
   props: {
     selectedCity : String
@@ -53,20 +52,16 @@ export default {
       .then(response => {
         this.avaliableCities = response.data.results
         this.avaliableCitiesList = this.avaliableCities.map(city => city.internal_name)
-        console.log(this.avaliableCities)
-        console.log(this.avaliableCitiesList)
       })
       .catch(e => {
         this.errors.push(e)
-        console.log(this.errors)
       })
     }
   },
 
   computed: {
    selectedCityStyled: function (){
-      let selectedCityStyled = this.selectedCity.toUpperCase().replace('-', /\s+/g)
-      return selectedCityStyled
+      return _.startCase(_.toLower(this.selectedCity))
     }
   }
 }

@@ -10,6 +10,9 @@
           prepend-inner-icon="search"
           color="success"
           @change="changeSelectedCity"
+          v-model="selected" 
+          autocomplete 
+          :search-input.sync="searchInput"
         ></v-select>
       </v-flex>
     </v-layout>
@@ -69,9 +72,17 @@ export default {
 }
 </script>
 
-<style scoped>
-  .v-input {
+<style>
+  .theme--light.v-input:not(.v-input--is-disabled) input, 
+    .theme--light.v-input:not(.v-input--is-disabled) textarea {
     font-weight: 800 !important;
     font-size: 17px !important;
+    color: #424242;
   }
+
+  .v-select__slot .v-label {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    color: #424242;
+}
 </style>

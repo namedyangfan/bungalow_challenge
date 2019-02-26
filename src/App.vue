@@ -33,8 +33,8 @@
 import axios from 'axios'
 import _     from 'lodash'
 
-import Card     from './components/Card'
-import Filters  from './components/Filters'
+import Card          from './components/Card'
+import Filters       from './components/Filters'
 import LoadingState  from './components/LoadingState'
 
 export default {
@@ -84,7 +84,9 @@ export default {
     },
 
     updateFilterStatus: function(){
-      this.bungalows = {...this.bungalowsCopy}
+      this.bungalows       = {...this.bungalowsCopy}
+
+      //a flag for reset filters
       this.needClearFilter = !this.needClearFilter
     }
   },

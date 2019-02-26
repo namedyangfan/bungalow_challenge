@@ -25,7 +25,12 @@
           search-input.sync
         ></v-select>
       </v-flex>
-      <RoomFilter :filterAvaliableRooms="filterAvaliableRooms"/>
+      <RoomFilter 
+        :filterAvaliableRooms = "filterAvaliableRooms"
+        :needClearFilter      = "needClearFilter"
+        :updateFilterStatus   = "updateFilterStatus"
+        :isLoading            = "isLoading"
+      />
     </v-layout>
   </v-container>
 </v-toolbar>
@@ -44,7 +49,10 @@ export default {
   },
   props: {
     selectedCity         : String,
-    filterAvaliableRooms : Function
+    needClearFilter      : Boolean,
+    isLoading            : Boolean,
+    filterAvaliableRooms : Function,
+    updateFilterStatus   : Function
   },
 
   data () {
@@ -61,7 +69,6 @@ export default {
   methods: {
 
     changeSelectedCity: function(city){
-      console.log(city)
       this.$emit('changeSelectedCity', city)
     },
 

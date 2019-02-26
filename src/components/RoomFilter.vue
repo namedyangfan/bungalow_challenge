@@ -13,8 +13,6 @@
           v-model="avaliableRoomRange"
           :max="10"
           :min="1"
-          :label="rooms"
-          :type="number"
           always-dirty
           thumb-label="always"
           thumb-size="25"
@@ -23,7 +21,8 @@
       <v-layout row>
         <v-flex grow/>
         <v-flex shrink>
-          <v-btn flat medium @click='filterAvaliableRooms()'>
+          <v-btn flat medium 
+            @click='filterAvaliableRooms(avaliableRoomRange)'>
             Apply
           </v-btn>
         </v-flex>
@@ -33,13 +32,16 @@
 </template>
 
 <script>
+import _ from 'lodash'
 
 export default {
   name: 'RoomFilter',
-
   props: {
     selectedCity         : String,
-    filterAvaliableRooms : Function
+    needClearFilter      : Boolean,
+    isLoading            : Boolean,
+    filterAvaliableRooms : Function,
+    updateFilterStatus   : Function
   },
 
   data () {
@@ -49,10 +51,16 @@ export default {
   },
 
   methods: {
-
   },
 
-  computed: {
+  watch: {
+    needClearFilter: function(){
+      this.avaliableRoomRange = [1,10];
+    },
+
+    isLoading: function(){
+      this.filterAvaliableRooms(this.avaliableRoomRange)
+    }
   }
 }
 </script>

@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <Filters @changeSelectedCity="changeSelectedCity" :selectedCity="selectedCity"/>
+    <Filters 
+      @changeSelectedCity   = "changeSelectedCity" 
+      :filterAvaliableRooms = "filterAvaliableRooms"
+      :selectedCity         = "selectedCity"
+      />
     <template v-if="isLoading ">
       <v-container fill-height>
         <div class="text-xs-center center-loading">
@@ -55,6 +59,10 @@ export default {
     changeSelectedCity: function(city) {
       this.selectedCity = city
       this.getBungalows()
+    },
+
+    filterAvaliableRooms: function(){
+      console.log("FILTER FIRED")
     }
   },
   created() {

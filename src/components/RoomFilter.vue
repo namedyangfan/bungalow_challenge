@@ -1,0 +1,64 @@
+<template>
+  <v-flex sm12 md3 d-flex pt-1>
+    <v-menu offset-y content-class="filter-menu" light z-index="1000"
+      :close-on-content-click="false" max-width="300" nudge-bottom="10" max-height="150">
+      <v-btn
+        slot="activator"
+        class="text-capitalize white"
+      >
+        <span text-capitalize>Avaliable Rooms</span>
+      </v-btn>
+      <v-flex pt-3 pl-4 pr-4>
+        <v-range-slider
+          v-model="avaliableRoomRange"
+          :max="10"
+          :min="1"
+          :label="rooms"
+          :type="number"
+          always-dirty
+          thumb-label="always"
+          thumb-size="25"
+        ></v-range-slider>
+      </v-flex>
+      <v-layout row>
+        <v-flex grow/>
+        <v-flex shrink>
+          <v-btn flat medium @click='filterAvaliableRooms()'>
+            Apply
+          </v-btn>
+        </v-flex>
+    </v-layout>
+    </v-menu>
+  </v-flex>
+</template>
+
+<script>
+
+export default {
+  name: 'RoomFilter',
+
+  props: {
+    selectedCity         : String,
+    filterAvaliableRooms : Function
+  },
+
+  data () {
+    return {
+      avaliableRoomRange  : [1,10],
+    }
+  },
+
+  methods: {
+
+  },
+
+  computed: {
+  }
+}
+</script>
+
+<style scoped>
+  .filter-menu{
+    background-color: #FAFAFA
+  }
+</style>

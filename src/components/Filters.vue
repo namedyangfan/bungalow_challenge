@@ -11,7 +11,7 @@
             max-height="50"
         />
       </v-flex>
-      <v-flex sm11 md6 d-flex pt-1>
+      <v-flex sm11 md3 d-flex pt-1>
         <v-select 
           :label="selectedCityStyled"
           :items="avaliableCitiesObj"
@@ -25,6 +25,7 @@
           search-input.sync
         ></v-select>
       </v-flex>
+      <RoomFilter :filterAvaliableRooms="filterAvaliableRooms"/>
     </v-layout>
   </v-container>
 </v-toolbar>
@@ -34,11 +35,16 @@
 import axios from 'axios'
 import _     from 'lodash'
 
+import RoomFilter from './RoomFilter'
+
 export default {
   name: 'Filters',
-
+  components: {
+    RoomFilter
+  },
   props: {
-    selectedCity : String
+    selectedCity         : String,
+    filterAvaliableRooms : Function
   },
 
   data () {

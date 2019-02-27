@@ -4,7 +4,7 @@
       :close-on-content-click="false" max-width="300" nudge-bottom="10" max-height="150">
       <v-btn
         slot="activator"
-        class="text-capitalize white"
+        class="text-capitalize white room-filter"
       >
         <span text-capitalize>Avaliable Rooms</span>
       </v-btn>
@@ -68,5 +68,15 @@ export default {
 <style scoped>
   .filter-menu{
     background-color: #FAFAFA
+  }
+
+  button:hover{
+    background-color: #1976d2
+    color: white 
+  }
+
+  .v-menu__activator--active .room-filter{
+    background-color: #1976d2 !important;
+    color: white !important;
   }
 </style>

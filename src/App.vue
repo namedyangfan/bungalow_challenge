@@ -1,13 +1,25 @@
 <template>
   <v-app>
-    <Filters @changeSelectedCity="changeSelectedCity" :selectedCity="selectedCity"/>
+    <Filters 
+      @changeSelectedCity   = "changeSelectedCity" 
+      :filterAvaliableRooms = "filterAvaliableRooms"
+      :selectedCity         = "selectedCity"
+      :needClearFilter      = "needClearFilter"
+      :updateFilterStatus   = "updateFilterStatus"
+      :isLoading            = "isLoading"
+      />
     <template v-if="isLoading ">
+      <LoadingState />
+    </template>
+    <template v-else-if="isbungalowsListEmpty">
       <v-container fill-height>
         <div class="text-xs-center center-loading">
-          <v-progress-circular :size="100" color="primary" indeterminate>
-          </v-progress-circular>
+          <v-btn flat medium 
+            @click='updateFilterStatus()'>
+            Clear Filter
+          </v-btn>
         </div>
-    </v-container>
+      </v-container>
     </template>
     <template v-else>
       <v-content pt-60>
@@ -18,22 +30,28 @@
 </template>
 
 <script>
-import axios    from 'axios'
-import Card     from './components/Card'
-import Filters  from './components/Filters'
+import axios from 'axios'
+import _     from 'lodash'
+
+import Card          from './components/Card'
+import Filters       from './components/Filters'
+import LoadingState  from './components/LoadingState'
 
 export default {
   name: 'App',
   components: {
     Card,
-    Filters
+    Filters,
+    LoadingState
   },
   data () {
     return {
-      bungalows    : [],
-      errors       : [],
-      selectedCity : 'seattle',
-      isLoading    : true
+      bungalows        : [],
+      bungalowsCopy    : [],
+      errors           : [],
+      selectedCity     : 'seattle',
+      isLoading        : true,
+      needClearFilter  : false
     }
   },
   methods: {
@@ -43,8 +61,9 @@ export default {
 
       axios.get(url)
       .then(response => {
-        this.bungalows = response.data.results
-        this.isLoading = false
+        this.bungalows     = response.data.results
+        this.bungalowsCopy = response.data.results
+        this.isLoading     = false
       })
       .catch(e => {
         this.errors.push(e)
@@ -55,10 +74,29 @@ export default {
     changeSelectedCity: function(city) {
       this.selectedCity = city
       this.getBungalows()
+    },
+
+    filterAvaliableRooms: function(avaliableRoomRange){
+      this.bungalows = _.filter(this.bungalowsCopy, function(bungalow) { 
+        return bungalow.available_room_count>=avaliableRoomRange[0] && 
+          bungalow.available_room_count<=avaliableRoomRange[1]; 
+      });
+    },
+
+    updateFilterStatus: function(){
+      this.bungalows       = {...this.bungalowsCopy}
+
+      //a flag for reset filters
+      this.needClearFilter = !this.needClearFilter
     }
   },
   created() {
     this.getBungalows()
+  },
+  computed: {
+   isbungalowsListEmpty: function (){
+      return _.isEmpty(this.bungalows)
+    }
   }
 }
 </script>

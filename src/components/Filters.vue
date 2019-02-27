@@ -4,27 +4,33 @@
     <v-layout>
       <v-flex sm1 md1 d-flex>
         <v-img
-            :src="require('.././assets/logo.png')"
-            class="mr-5"
+            :src       = "require('.././assets/logo.png')"
+            class      = "mr-5"
+            min-width  = "50"
+            max-height = "50"
             contain
-            min-width="50"
-            max-height="50"
         />
       </v-flex>
-      <v-flex sm11 md6 d-flex pt-1>
+      <v-flex sm11 md3 d-flex pt-1>
         <v-select 
-          :label="selectedCityStyled"
-          :items="avaliableCitiesObj"
-          item-text="display_name"
-          item-value="slug"
+          :label             = "selectedCityStyled"
+          :items             = "avaliableCitiesObj"
+          item-text          = "display_name"
+          item-value         = "slug"
+          prepend-inner-icon = "search"
+          color              = "success"
+          @change            = "changeSelectedCity"
           solo
-          prepend-inner-icon="search"
-          color="success"
-          @change="changeSelectedCity"
           autocomplete 
           search-input.sync
         ></v-select>
       </v-flex>
+      <RoomFilter 
+        :filterAvaliableRooms = "filterAvaliableRooms"
+        :needClearFilter      = "needClearFilter"
+        :updateFilterStatus   = "updateFilterStatus"
+        :isLoading            = "isLoading"
+      />
     </v-layout>
   </v-container>
 </v-toolbar>
@@ -34,11 +40,19 @@
 import axios from 'axios'
 import _     from 'lodash'
 
+import RoomFilter from './RoomFilter'
+
 export default {
   name: 'Filters',
-
+  components: {
+    RoomFilter
+  },
   props: {
-    selectedCity : String
+    selectedCity         : String,
+    needClearFilter      : Boolean,
+    isLoading            : Boolean,
+    filterAvaliableRooms : Function,
+    updateFilterStatus   : Function
   },
 
   data () {
@@ -55,7 +69,6 @@ export default {
   methods: {
 
     changeSelectedCity: function(city){
-      console.log(city)
       this.$emit('changeSelectedCity', city)
     },
 

@@ -33,9 +33,9 @@
 import axios from 'axios'
 import _     from 'lodash'
 
-import Card          from '.././components/Card'
-import Filters       from '.././components/Filters'
-import LoadingState  from '.././components/LoadingState'
+import Card          from '@/components/Card'
+import Filters       from '@/components/Filters'
+import LoadingState  from '@/components/LoadingState'
 
 export default {
   name: 'HomePage',

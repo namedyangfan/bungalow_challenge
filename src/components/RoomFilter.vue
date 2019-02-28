@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 export default {
   name: 'RoomFilter',
   props: {
@@ -67,12 +65,12 @@ export default {
 
 <style scoped>
   .filter-menu{
-    background-color: #FAFAFA
+    background-color: #FAFAFA;
   }
 
   button:hover{
-    background-color: #1976d2
-    color: white 
+    background-color: #1976d2;
+    color: white;
   }
 
   .v-menu__activator--active .room-filter{

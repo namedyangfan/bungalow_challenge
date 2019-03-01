@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import _     from 'lodash'
+
 export default {
   name: 'RoomFilter',
   props: {
@@ -45,12 +47,23 @@ export default {
   data () {
     return {
       avaliableRoomRange  : [1,10],
+      filterMin           : this.$route.query.availableRoomsMin || 1,
+      filterMax           : this.$route.query.availableRoomsMax || 10
     }
   },
 
   methods: {
+    updateFilterVariable(){
+      if(this.avaliableRoomRange[0]!=this.filterMin || this.avaliableRoomRange[1]!=this.filterMax){
+        this.avaliableRoomRange = [this.filterMin, this.filterMax]
+        this.filterAvaliableRooms(this.avaliableRoomRange)
+      }
+    }
   },
 
+  created() {
+    this.updateFilterVariable()
+  },
   watch: {
     needClearFilter: function(){
       this.avaliableRoomRange = [1,10];
@@ -58,6 +71,13 @@ export default {
 
     isLoading: function(){
       this.filterAvaliableRooms(this.avaliableRoomRange)
+    },
+
+    avaliableRoomRange: function(){
+      this.$router.replace({ query: 
+        {availableRoomsMin: this.avaliableRoomRange[0],
+         availableRoomsMax: this.avaliableRoomRange[1]} 
+      })
     }
   }
 }

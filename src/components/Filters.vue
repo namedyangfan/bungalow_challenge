@@ -1,8 +1,8 @@
 <template>
   <v-toolbar :light="true" :fixed="true" app flat>
   <v-container mx-auto py-0>
-    <v-layout>
-      <v-flex sm1 md1 d-flex>
+    <v-layout row wrap>
+      <v-flex xs12 sm1 md1 d-flex>
         <v-img
             :src       = "require('.././assets/logo.png')"
             class      = "mr-5"
@@ -11,7 +11,7 @@
             contain
         />
       </v-flex>
-      <v-flex sm11 md3 d-flex pt-1>
+      <v-flex xs6 sm5 md3 pt-1>
         <v-select 
           :label             = "selectedCityStyled"
           :items             = "avaliableCitiesObj"
@@ -25,12 +25,14 @@
           search-input.sync
         ></v-select>
       </v-flex>
-      <RoomFilter 
-        :filterAvaliableRooms = "filterAvaliableRooms"
-        :needClearFilter      = "needClearFilter"
-        :updateFilterStatus   = "updateFilterStatus"
-        :isLoading            = "isLoading"
-      />
+      <v-flex xs2 sm5 md3 pt-1>
+        <RoomFilter 
+          :filterAvaliableRooms = "filterAvaliableRooms"
+          :needClearFilter      = "needClearFilter"
+          :updateFilterStatus   = "updateFilterStatus"
+          :isLoading            = "isLoading"
+        />
+      </v-flex>
     </v-layout>
   </v-container>
 </v-toolbar>
@@ -100,12 +102,12 @@ export default {
   .theme--light.v-input:not(.v-input--is-disabled) input, 
     .theme--light.v-input:not(.v-input--is-disabled) textarea {
     font-weight: 800 !important;
-    font-size: 17px !important;
+    font-size: calc(12px + 0.5vw) !important;
     color: #424242;
   }
 
   .v-select__slot .v-label {
-    font-size: 17px !important;
+    font-size: calc(12px + 0.5vw) !important;
     font-weight: 800 !important;
     color: #424242;
 }

@@ -13,12 +13,12 @@
     </template>
     <template v-else-if="isbungalowsListEmpty">
       <v-container fill-height>
-        <div class="text-xs-center center-loading">
+        <v-layout row wrap align-center class="center-loading">
           <v-btn flat medium 
             @click='updateFilterStatus()'>
             Clear Filter
           </v-btn>
-        </div>
+        </v-layout>
       </v-container>
     </template>
     <template v-else>
@@ -104,5 +104,6 @@ export default {
 <style>
   .center-loading{
     padding-left: 45%;
+    padding-top: 20%;
   }
 </style>

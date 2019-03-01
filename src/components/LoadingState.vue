@@ -1,9 +1,9 @@
 <template>
   <v-container fill-height>
-    <div class="text-xs-center center-loading">
+    <v-layout row wrap align-center class="center-loading">
       <v-progress-circular :size="100" color="primary" indeterminate>
       </v-progress-circular>
-    </div>
+    </v-layout >
   </v-container>
 </template>
 
@@ -14,7 +14,5 @@ export default {
 </script>
 
 <style>
-  .center-loading{
-    padding-left: 45%;
-  }
+
 </style>

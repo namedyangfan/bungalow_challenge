@@ -6,7 +6,7 @@
         slot="activator"
         class="text-capitalize white room-filter"
       >
-        <span text-capitalize>Avaliable Rooms</span>
+        <span text-capitalize class="filter-menu-text">Avaliable Rooms</span>
       </v-btn>
       <v-flex pt-3 pl-4 pr-4>
         <v-range-slider
@@ -66,6 +66,10 @@ export default {
 <style scoped>
   .filter-menu{
     background-color: #FAFAFA;
+  }
+
+  .filter-menu-text{
+    font-size: calc(10px + 0.2vw) !important;
   }
 
   button:hover{

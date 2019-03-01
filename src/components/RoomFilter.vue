@@ -69,7 +69,7 @@ export default {
   }
 
   button:hover{
-    background-color: #1976d2;
+    background-color: #1976d2 !important;
     color: white;
   }
 

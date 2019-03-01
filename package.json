@@ -12,6 +12,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.5.2"
   },
   "devDependencies": {

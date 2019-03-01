@@ -10,6 +10,7 @@
       </v-btn>
       <v-flex pt-3 pl-4 pr-4>
         <v-range-slider
+          v-on:change="testVon"
           v-model="avaliableRoomRange"
           :max="10"
           :min="1"
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import _     from 'lodash'
+import _ from 'lodash'
 
 export default {
   name: 'RoomFilter',
@@ -53,16 +54,35 @@ export default {
   },
 
   methods: {
-    updateFilterVariable(){
+    getFilterVariableFromQuery: function(){
       if(this.avaliableRoomRange[0]!=this.filterMin || this.avaliableRoomRange[1]!=this.filterMax){
         this.avaliableRoomRange = [this.filterMin, this.filterMax]
         this.filterAvaliableRooms(this.avaliableRoomRange)
       }
-    }
+    },
+
+    updateQueryParams: function(){
+      this.$router.replace({ query: 
+        {availableRoomsMin: this.avaliableRoomRange[0],
+         availableRoomsMax: this.avaliableRoomRange[1]} 
+      })
+    },
+
+    testVon: function(){
+      console.log('this is testVon' + this.avaliableRoomRange)
+      this.updateQueryParams()
+      this.filterAvaliableRooms(this.avaliableRoomRange)
+    },
+
+    debounceFilterAvaliableRooms: _.debounce(()=>{
+        console.log('asdasdas')
+        this.filterAvaliableRooms([7,10])
+      }
+      ,1000),
   },
 
   created() {
-    this.updateFilterVariable()
+    this.getFilterVariableFromQuery()
   },
   watch: {
     needClearFilter: function(){
@@ -71,13 +91,6 @@ export default {
 
     isLoading: function(){
       this.filterAvaliableRooms(this.avaliableRoomRange)
-    },
-
-    avaliableRoomRange: function(){
-      this.$router.replace({ query: 
-        {availableRoomsMin: this.avaliableRoomRange[0],
-         availableRoomsMax: this.avaliableRoomRange[1]} 
-      })
     }
   }
 }

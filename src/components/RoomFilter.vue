@@ -10,7 +10,7 @@
       </v-btn>
       <v-flex pt-3 pl-4 pr-4>
         <v-range-slider
-          v-on:change="testVon"
+          v-on:change="updateFilterVarAvaliableRooms"
           v-model="avaliableRoomRange"
           :max="10"
           :min="1"
@@ -19,15 +19,6 @@
           thumb-size="25"
         ></v-range-slider>
       </v-flex>
-      <v-layout row>
-        <v-flex grow/>
-        <v-flex shrink>
-          <v-btn flat medium 
-            @click='filterAvaliableRooms(avaliableRoomRange)'>
-            Apply
-          </v-btn>
-        </v-flex>
-    </v-layout>
     </v-menu>
   </v-flex>
 </template>
@@ -68,17 +59,14 @@ export default {
       })
     },
 
-    testVon: function(){
-      console.log('this is testVon' + this.avaliableRoomRange)
-      this.updateQueryParams()
+    debounceFilterAvaliableRooms:_.debounce(function() {
       this.filterAvaliableRooms(this.avaliableRoomRange)
-    },
+    }, 500),
 
-    debounceFilterAvaliableRooms: _.debounce(()=>{
-        console.log('asdasdas')
-        this.filterAvaliableRooms([7,10])
-      }
-      ,1000),
+    updateFilterVarAvaliableRooms: function(){
+      this.updateQueryParams()
+      this.debounceFilterAvaliableRooms()
+    },
   },
 
   created() {
@@ -87,6 +75,7 @@ export default {
   watch: {
     needClearFilter: function(){
       this.avaliableRoomRange = [1,10];
+      this.updateQueryParams();
     },
 
     isLoading: function(){

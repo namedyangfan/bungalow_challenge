@@ -29,7 +29,6 @@
         <RoomFilter 
           :filterAvaliableRooms = "filterAvaliableRooms"
           :needClearFilter      = "needClearFilter"
-          :updateFilterStatus   = "updateFilterStatus"
           :isLoading            = "isLoading"
         />
       </v-flex>
@@ -53,8 +52,7 @@ export default {
     selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
-    filterAvaliableRooms : Function,
-    updateFilterStatus   : Function
+    filterAvaliableRooms : Function
   },
 
   data () {
@@ -66,12 +64,22 @@ export default {
 
   created() {
     this.getAvaliableCities()
+    this.updateRouterParams(this.selectedCity)
   },
 
   methods: {
 
+    updateRouterParams: function(city){
+      this.$router.replace({ 
+        params: {market_slug: city},
+        query: {...this.$route.query} 
+      })
+      console.log()
+    },
+
     changeSelectedCity: function(city){
       this.$emit('changeSelectedCity', city)
+      this.updateRouterParams(city)
     },
 
     getAvaliableCities: function(){

@@ -32,8 +32,7 @@ export default {
     selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
-    filterAvaliableRooms : Function,
-    updateFilterStatus   : Function
+    filterAvaliableRooms : Function
   },
 
   data () {
@@ -52,7 +51,7 @@ export default {
       }
     },
 
-    updateQueryParams: function(){
+    updateRouterParams: function(){
       this.$router.replace({ query: 
         {availableRoomsMin: this.avaliableRoomRange[0],
          availableRoomsMax: this.avaliableRoomRange[1]} 
@@ -64,7 +63,7 @@ export default {
     }, 500),
 
     updateFilterVarAvaliableRooms: function(){
-      this.updateQueryParams()
+      this.updateRouterParams()
       this.debounceFilterAvaliableRooms()
     },
   },
@@ -75,11 +74,15 @@ export default {
   watch: {
     needClearFilter: function(){
       this.avaliableRoomRange = [1,10];
-      this.updateQueryParams();
+      this.updateRouterParams();
     },
 
     isLoading: function(){
-      this.filterAvaliableRooms(this.avaliableRoomRange)
+      this.isLoading?(
+        null
+      ):(
+        this.filterAvaliableRooms(this.avaliableRoomRange)
+      )
     }
   }
 }

@@ -5,7 +5,6 @@
       :filterAvaliableRooms = "filterAvaliableRooms"
       :selectedCity         = "selectedCity"
       :needClearFilter      = "needClearFilter"
-      :updateFilterStatus   = "updateFilterStatus"
       :isLoading            = "isLoading"
       />
     <template v-if="isLoading ">
@@ -15,7 +14,7 @@
       <v-container fill-height>
         <v-layout row wrap align-center class="center-loading">
           <v-btn flat medium 
-            @click='updateFilterStatus()'>
+            @click='resetFilterStatus()'>
             Clear Filter
           </v-btn>
         </v-layout>
@@ -49,9 +48,9 @@ export default {
       bungalows        : [],
       bungalowsCopy    : [],
       errors           : [],
-      selectedCity     : 'seattle',
-      isLoading        : true,
-      needClearFilter  : false
+      selectedCity     : this.$route.params.market_slug || 'seattle',
+      isLoading        : null,
+      needClearFilter  : false //a flag for reset filters
     }
   },
   methods: {
@@ -83,10 +82,9 @@ export default {
       });
     },
 
-    updateFilterStatus: function(){
-      this.bungalows       = {...this.bungalowsCopy}
+    resetFilterStatus: function(){
+      this.bungalows       = [...this.bungalowsCopy]
 
-      //a flag for reset filters
       this.needClearFilter = !this.needClearFilter
     }
   },

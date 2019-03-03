@@ -67,14 +67,16 @@ https://fieldstone.bungalow.com/api/v1/listings/properties/?market__slug=seattle
   3.  `slug` returned from the markets API can be used as the query parameter in the listings API
   4.  `display_name` returned from the markets API is the proper name for that market
   5.  all posting can be categorized into **available today**,**available in 5 days**, and **available in 1 month**
-  6.  listings API only returns a portion of the data that is small enough to be handled by the frontend
-  7.  available room filter need to be saved on city selections
-  8.  primary color is `#ef6c00`
-  9.  the developer of this project has the right to use and modify the Bungalow Icon 
+  6.  assume the maximum rooms per house is **10** and the minimum is **1**
+  7.  listings API only returns a portion of the data that is small enough to be handled by the frontend
+  8.  available room filter need to be saved on city selections
+  9.  primary color is `#ef6c00`
+  10.  the developer of this project has the right to use and modify the Bungalow Icon 
 
 ## Questions
         What is the preferred way to pass a function from parent component to child?
         Will any data or prop change trigger its correspondent components to be re-rendered?
+        Is there any way that we could set the maximum number of rooms dynamicly? Is this required?
 ## Future Work
 1.  The height of the card is set as static, it would be nice to set it as a dynamic number
 2.  Add more filters

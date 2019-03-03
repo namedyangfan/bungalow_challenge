@@ -10,6 +10,7 @@
       </v-btn>
       <v-flex pt-3 pl-4 pr-4>
         <v-range-slider
+          v-on:change="updateFilterVarAvaliableRooms"
           v-model="avaliableRoomRange"
           :max="10"
           :min="1"
@@ -18,46 +19,71 @@
           thumb-size="25"
         ></v-range-slider>
       </v-flex>
-      <v-layout row>
-        <v-flex grow/>
-        <v-flex shrink>
-          <v-btn flat medium 
-            @click='filterAvaliableRooms(avaliableRoomRange)'>
-            Apply
-          </v-btn>
-        </v-flex>
-    </v-layout>
     </v-menu>
   </v-flex>
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'RoomFilter',
   props: {
     selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
-    filterAvaliableRooms : Function,
-    updateFilterStatus   : Function
+    filterAvaliableRooms : Function
   },
 
   data () {
     return {
       avaliableRoomRange  : [1,10],
+      filterMin           : this.$route.query.availableRoomsMin || 1,
+      filterMax           : this.$route.query.availableRoomsMax || 10
     }
   },
 
   methods: {
+    getFilterVariableFromQuery: function(){
+      if(this.avaliableRoomRange[0]!=this.filterMin || this.avaliableRoomRange[1]!=this.filterMax){
+        this.avaliableRoomRange = [this.filterMin, this.filterMax]
+        this.filterAvaliableRooms(this.avaliableRoomRange)
+      }
+    },
+
+    updateRouterParams: function(){
+      this.$router.replace({ query: 
+        {availableRoomsMin: this.avaliableRoomRange[0],
+         availableRoomsMax: this.avaliableRoomRange[1]} 
+      })
+    },
+
+    debounceFilterAvaliableRooms:_.debounce(function() {
+      this.filterAvaliableRooms(this.avaliableRoomRange)
+    }, 500),
+
+    updateFilterVarAvaliableRooms: function(){
+      this.updateRouterParams()
+      this.debounceFilterAvaliableRooms()
+    },
   },
 
+  created() {
+    this.getFilterVariableFromQuery()
+    this.updateRouterParams()
+  },
   watch: {
     needClearFilter: function(){
       this.avaliableRoomRange = [1,10];
+      this.updateRouterParams();
     },
 
     isLoading: function(){
-      this.filterAvaliableRooms(this.avaliableRoomRange)
+      this.isLoading?(
+        null
+      ):(
+        this.filterAvaliableRooms(this.avaliableRoomRange)
+      )
     }
   }
 }

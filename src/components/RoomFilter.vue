@@ -70,6 +70,7 @@ export default {
 
   created() {
     this.getFilterVariableFromQuery()
+    this.updateRouterParams()
   },
   watch: {
     needClearFilter: function(){

@@ -11,7 +11,7 @@
             contain
         />
       </v-flex>
-      <v-flex xs6 sm5 md3 pt-1>
+      <v-flex xs6 sm4 md3 pt-1>
         <v-select 
           :label             = "selectedCityStyled"
           :items             = "avaliableCitiesObj"
@@ -25,8 +25,15 @@
           search-input.sync
         ></v-select>
       </v-flex>
-      <v-flex xs2 sm5 md3 pt-1>
+      <v-flex shrink pt-1 pl-1>
         <RoomFilter 
+          :filterAvaliableRooms = "filterAvaliableRooms"
+          :needClearFilter      = "needClearFilter"
+          :isLoading            = "isLoading"
+        />
+      </v-flex>
+      <v-flex shrink pt-1 pl-1>
+        <DateFilter 
           :filterAvaliableRooms = "filterAvaliableRooms"
           :needClearFilter      = "needClearFilter"
           :isLoading            = "isLoading"
@@ -42,11 +49,13 @@ import axios from 'axios'
 import _     from 'lodash'
 
 import RoomFilter from './RoomFilter'
+import DateFilter from './DateFilter'
 
 export default {
   name: 'Filters',
   components: {
-    RoomFilter
+    RoomFilter,
+    DateFilter
   },
   props: {
     selectedCity         : String,

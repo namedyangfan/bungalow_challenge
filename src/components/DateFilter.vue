@@ -5,7 +5,7 @@
       slot="activator"
       class="text-capitalize white room-filter"
     >
-      <span text-capitalize class="filter-menu-text">Avaliable Rooms</span>
+      <span text-capitalize class="filter-menu-text">Move-in Date</span>
     </v-btn>
     <v-flex pt-3 pl-4 pr-4>
       <v-range-slider
@@ -25,7 +25,7 @@
 import _ from 'lodash'
 
 export default {
-  name: 'RoomFilter',
+  name: 'DateFilter',
   props: {
     selectedCity         : String,
     needClearFilter      : Boolean,

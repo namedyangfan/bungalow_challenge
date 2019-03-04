@@ -27,7 +27,6 @@ import _ from 'lodash'
 export default {
   name: 'RoomFilter',
   props: {
-    selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
     filterAvaliableRooms : Function
@@ -51,8 +50,9 @@ export default {
 
     updateRouterParams: function(){
       this.$router.replace({ query: 
-        {availableRoomsMin: this.avaliableRoomRange[0],
-         availableRoomsMax: this.avaliableRoomRange[1]} 
+        { ...this.$route.query,
+          availableRoomsMin: this.avaliableRoomRange[0],
+          availableRoomsMax: this.avaliableRoomRange[1]} 
       })
     },
 

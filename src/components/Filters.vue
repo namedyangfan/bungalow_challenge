@@ -25,16 +25,16 @@
           search-input.sync
         ></v-select>
       </v-flex>
-      <v-flex shrink pt-1 pl-1>
+      <v-flex shrink pt-1>
         <RoomFilter 
           :filterAvaliableRooms = "filterAvaliableRooms"
           :needClearFilter      = "needClearFilter"
           :isLoading            = "isLoading"
         />
       </v-flex>
-      <v-flex shrink pt-1 pl-1>
+      <v-flex shrink pt-1>
         <DateFilter 
-          :filterAvaliableRooms = "filterAvaliableRooms"
+          :filterMoveInDate     = "filterMoveInDate"
           :needClearFilter      = "needClearFilter"
           :isLoading            = "isLoading"
         />
@@ -61,7 +61,8 @@ export default {
     selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
-    filterAvaliableRooms : Function
+    filterAvaliableRooms : Function,
+    filterMoveInDate     : Function
   },
 
   data () {
@@ -83,7 +84,6 @@ export default {
         params: {market_slug: city},
         query: {...this.$route.query} 
       })
-      console.log()
     },
 
     changeSelectedCity: function(city){

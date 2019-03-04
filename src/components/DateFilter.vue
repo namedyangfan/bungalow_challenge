@@ -1,78 +1,78 @@
 <template>
-  <v-menu offset-y content-class="filter-menu" light z-index="1000"
-    :close-on-content-click="false" max-width="300" nudge-bottom="10" max-height="150">
+  <v-menu ref="menu" offset-y content-class="filter-menu" light 
+    :close-on-content-click="false" max-width="400" nudge-bottom="10">
     <v-btn
       slot="activator"
       class="text-capitalize white room-filter"
     >
       <span text-capitalize class="filter-menu-text">Move-in Date</span>
     </v-btn>
-    <v-flex pt-3 pl-4 pr-4>
-      <v-range-slider
-        v-on:change="updateFilterVarAvaliableRooms"
-        v-model="avaliableRoomRange"
-        :max="10"
-        :min="1"
-        always-dirty
-        thumb-label="always"
-        thumb-size="25"
-      ></v-range-slider>
+    <v-flex>
+      <v-date-picker
+        ref          = "picker"
+        no-title
+        v-model      = "moveInDate"
+        show-current = "2019-03-13"
+        v-on:change  = "updateMoveInDate"
+        :min         = "currentDate"
+      >
+      </v-date-picker>
     </v-flex>
   </v-menu>
 </template>
 
 <script>
-import _ from 'lodash'
+import _      from 'lodash'
+import moment from 'moment'
 
 export default {
   name: 'DateFilter',
   props: {
-    selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
-    filterAvaliableRooms : Function
+    filterMoveInDate     : Function
   },
 
   data () {
     return {
-      avaliableRoomRange  : [1,10],
-      filterMin           : this.$route.query.availableRoomsMin || 1,
-      filterMax           : this.$route.query.availableRoomsMax || 10
+      moveInDate  : null,
+      currentDate : moment().format("YYYY-MM-DD"),
+      filterMin   : this.$route.query.availableRoomsMin || 1,
+      filterMax   : this.$route.query.availableRoomsMax || 10
     }
   },
 
   methods: {
-    getFilterVariableFromQuery: function(){
-      if(this.avaliableRoomRange[0]!=this.filterMin || this.avaliableRoomRange[1]!=this.filterMax){
-        this.avaliableRoomRange = [this.filterMin, this.filterMax]
-        this.filterAvaliableRooms(this.avaliableRoomRange)
-      }
+    getMoveInDate: function(){
+      this.$route.query.moveInDate?(
+        this.moveInDate = moment(this.$route.query.moveInDate).format("YYYY-MM-DD")
+        ):(
+        this.moveInDate = moment().format("YYYY-MM-DD")
+      )
     },
 
     updateRouterParams: function(){
-      this.$router.replace({ query: 
-        {availableRoomsMin: this.avaliableRoomRange[0],
-         availableRoomsMax: this.avaliableRoomRange[1]} 
+      this.$router.replace({ 
+        query: {...this.$route.query, moveInDate: this.moveInDate}
       })
     },
 
-    debounceFilterAvaliableRooms:_.debounce(function() {
-      this.filterAvaliableRooms(this.avaliableRoomRange)
+    debounceFilterMoveInDate:_.debounce(function() {
+      this.filterMoveInDate(this.moveInDate)
     }, 500),
 
-    updateFilterVarAvaliableRooms: function(){
+    updateMoveInDate: function(){
       this.updateRouterParams()
-      this.debounceFilterAvaliableRooms()
+      this.debounceFilterMoveInDate()
     },
   },
 
   created() {
-    this.getFilterVariableFromQuery()
-    this.updateRouterParams()
+    this.getMoveInDate()
   },
   watch: {
     needClearFilter: function(){
-      this.avaliableRoomRange = [1,10];
+      this.moveInDate = this.currentDate
       this.updateRouterParams();
     },
 
@@ -80,7 +80,7 @@ export default {
       this.isLoading?(
         null
       ):(
-        this.filterAvaliableRooms(this.avaliableRoomRange)
+        this.filterMoveInDate(this.moveInDate)
       )
     }
   }

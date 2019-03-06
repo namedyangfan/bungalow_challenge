@@ -10,11 +10,11 @@
     <v-flex>
       <v-date-picker
         no-title
-        ref          = "picker"
-        v-model      = "moveInDate"
-        show-current = "2019-03-13"
-        @change      = "updateMoveInDate"
-        :min         = "currentDate"
+        ref           = "picker"
+        v-model       = "moveInDate"
+        @change       = "updateMoveInDate"
+        :show-current = "currentDate"
+        :min          = "currentDate"
       >
       </v-date-picker>
     </v-flex>
@@ -71,7 +71,7 @@ export default {
   created() {
     this.getMoveInDate()
   },
-  
+
   watch: {
     needClearFilter: function(){
       this.moveInDate = this.currentDate

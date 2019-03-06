@@ -1,17 +1,17 @@
 <template>
-  <v-toolbar :light="true" :fixed="true" app flat>
+  <v-toolbar :fixed="true" app flat>
   <v-container mx-auto py-0>
     <v-layout row wrap>
       <v-flex xs12 sm1 md1 d-flex>
         <v-img
-            :src       = "require('.././assets/logo.png')"
+            :src       = "require('@/assets/logo.png')"
             class      = "mr-5"
             min-width  = "50"
             max-height = "50"
             contain
         />
       </v-flex>
-      <v-flex xs6 sm4 md3 pt-1>
+      <v-flex xs12 sm4 md3 pt-1>
         <v-select 
           :label             = "selectedCityStyled"
           :items             = "avaliableCitiesObj"

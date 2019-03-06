@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Filters 
       @changeSelectedCity   = "changeSelectedCity" 
       :filterAvaliableRooms = "filterAvaliableRooms"
@@ -12,21 +12,27 @@
       <LoadingState />
     </template>
     <template v-else-if="isbungalowsListEmpty">
-      <v-container fill-height>
-        <v-layout row wrap align-center class="center-loading">
-          <v-btn flat medium 
-            @click='resetFilterStatus()'>
-            Clear Filter
-          </v-btn>
+      <v-card flat tile height="100%" class="pa-0" >
+        <v-layout column fill-height>
+          <v-container fluid fill-height grey lighten-5>
+            <v-layout>
+              <v-flex d-flex justify-center align-center class="text-xs-center">
+                <v-btn flat medium 
+                  @click='resetFilterStatus()'>
+                  Clear Filter
+                </v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-layout>
-      </v-container>
+      </v-card>
     </template>
     <template v-else>
       <v-content pt-60>
           <Card v-bind:bungalows="bungalows"/>
       </v-content>
     </template>
-  </div>
+  </v-app>
 </template>
 
 <script>

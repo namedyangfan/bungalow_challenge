@@ -28,8 +28,7 @@ export default {
   name: 'RoomFilter',
   props: {
     needClearFilter      : Boolean,
-    isLoading            : Boolean,
-    filterAvaliableRooms : Function
+    filterBungalows      : Function
   },
 
   data () {
@@ -44,7 +43,7 @@ export default {
     getFilterVariableFromQuery: function(){
       if(this.avaliableRoomRange[0]!=this.filterMin || this.avaliableRoomRange[1]!=this.filterMax){
         this.avaliableRoomRange = [this.filterMin, this.filterMax]
-        this.filterAvaliableRooms(this.avaliableRoomRange)
+        this.filterBungalows()
       }
     },
 
@@ -56,13 +55,14 @@ export default {
       })
     },
 
-    debounceFilterAvaliableRooms:_.debounce(function() {
-      this.filterAvaliableRooms(this.avaliableRoomRange)
+    debounceFilterBungalows:_.debounce(function() {
+      this.filterBungalows()
     }, 500),
 
     updateFilterVarAvaliableRooms: function(){
       this.updateRouterParams()
-      this.debounceFilterAvaliableRooms()
+      // this.debounceFilterAvaliableRooms()
+      this.debounceFilterBungalows()
     },
   },
 
@@ -74,14 +74,6 @@ export default {
     needClearFilter: function(){
       this.avaliableRoomRange = [1,10];
       this.updateRouterParams();
-    },
-
-    isLoading: function(){
-      this.isLoading?(
-        null
-      ):(
-        this.filterAvaliableRooms(this.avaliableRoomRange)
-      )
     }
   }
 }

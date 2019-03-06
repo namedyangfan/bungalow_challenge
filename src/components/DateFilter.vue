@@ -29,8 +29,7 @@ export default {
   name: 'DateFilter',
   props: {
     needClearFilter      : Boolean,
-    isLoading            : Boolean,
-    filterMoveInDate     : Function
+    filterBungalows      : Function
   },
 
   data () {
@@ -62,9 +61,13 @@ export default {
       this.filterMoveInDate(this.moveInDate)
     }, 500),
 
+    debounceFilterBungalows:_.debounce(function() {
+      this.filterBungalows()
+    }, 500),
+
     updateMoveInDate () {
       this.updateRouterParams()
-      this.debounceFilterMoveInDate()
+      this.debounceFilterBungalows()
     },
   },
 
@@ -80,14 +83,6 @@ export default {
 
     menu (val) {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = 'MONTH'))
-    },
-
-    isLoading: function(){
-      this.isLoading?(
-        null
-      ):(
-        this.filterMoveInDate(this.moveInDate)
-      )
     }
   }
 }

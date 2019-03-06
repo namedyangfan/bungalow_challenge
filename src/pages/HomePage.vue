@@ -3,6 +3,7 @@
     <Filters 
       @changeSelectedCity   = "changeSelectedCity" 
       :filterAvaliableRooms = "filterAvaliableRooms"
+      :filterMoveInDate     = "filterMoveInDate"
       :selectedCity         = "selectedCity"
       :needClearFilter      = "needClearFilter"
       :isLoading            = "isLoading"
@@ -79,6 +80,12 @@ export default {
       this.bungalows = _.filter(this.bungalowsCopy, function(bungalow) { 
         return bungalow.available_room_count>=avaliableRoomRange[0] && 
           bungalow.available_room_count<=avaliableRoomRange[1]; 
+      });
+    },
+
+    filterMoveInDate: function(moveInDate){
+      this.bungalows = _.filter(this.bungalowsCopy, function(bungalow) { 
+        return bungalow.earliest_available_date <= moveInDate
       });
     },
 

@@ -1,26 +1,24 @@
 <template>
-  <v-flex sm12 md3 d-flex pt-1>
-    <v-menu offset-y content-class="filter-menu" light z-index="1000"
-      :close-on-content-click="false" max-width="300" nudge-bottom="10" max-height="150">
-      <v-btn
-        slot="activator"
-        class="text-capitalize white room-filter"
-      >
-        <span text-capitalize class="filter-menu-text">Avaliable Rooms</span>
-      </v-btn>
-      <v-flex pt-3 pl-4 pr-4>
-        <v-range-slider
-          v-on:change="updateFilterVarAvaliableRooms"
-          v-model="avaliableRoomRange"
-          :max="10"
-          :min="1"
-          always-dirty
-          thumb-label="always"
-          thumb-size="25"
-        ></v-range-slider>
-      </v-flex>
-    </v-menu>
-  </v-flex>
+  <v-menu offset-y content-class="filter-menu" light z-index="1000"
+    :close-on-content-click="false" max-width="300" nudge-bottom="10" max-height="150">
+    <v-btn
+      slot="activator"
+      class="text-capitalize white room-filter"
+    >
+      <span text-capitalize class="filter-menu-text">Avaliable Rooms</span>
+    </v-btn>
+    <v-flex pt-3 pl-4 pr-4>
+      <v-range-slider
+        v-on:change="updateFilterVarAvaliableRooms"
+        v-model="avaliableRoomRange"
+        :max="10"
+        :min="1"
+        always-dirty
+        thumb-label="always"
+        thumb-size="25"
+      ></v-range-slider>
+    </v-flex>
+  </v-menu>
 </template>
 
 <script>
@@ -29,7 +27,6 @@ import _ from 'lodash'
 export default {
   name: 'RoomFilter',
   props: {
-    selectedCity         : String,
     needClearFilter      : Boolean,
     isLoading            : Boolean,
     filterAvaliableRooms : Function
@@ -53,8 +50,9 @@ export default {
 
     updateRouterParams: function(){
       this.$router.replace({ query: 
-        {availableRoomsMin: this.avaliableRoomRange[0],
-         availableRoomsMax: this.avaliableRoomRange[1]} 
+        { ...this.$route.query,
+          availableRoomsMin: this.avaliableRoomRange[0],
+          availableRoomsMax: this.avaliableRoomRange[1]} 
       })
     },
 

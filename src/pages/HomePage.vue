@@ -6,7 +6,7 @@
       :filterMoveInDate     = "filterMoveInDate"
       :selectedCity         = "selectedCity"
       :needClearFilter      = "needClearFilter"
-      :isLoading            = "isLoading"
+      :filterBungalows      = "filterBungalows"
       />
     <template v-if="isLoading ">
       <LoadingState />
@@ -71,6 +71,7 @@ export default {
         this.bungalowsCopy = response.data.results
         this.isLoading     = false
       })
+      .then( () => {this.filterBungalows()})
       .catch(e => {
         this.errors.push(e)
         this.isLoading = false
@@ -90,9 +91,20 @@ export default {
     },
 
     filterMoveInDate: function(moveInDate){
-      this.bungalows = _.filter(this.bungalowsCopy, function(bungalow) { 
+      this.bungalows = _.filter(this.bungalows, function(bungalow) { 
         return bungalow.earliest_available_date <= moveInDate
       });
+    },
+
+    filterBungalows(){
+      const moveInDate   = this.$route.query.moveInDate
+      const minRoomRange = this.$route.query.availableRoomsMin
+      const maxRoomRange = this.$route.query.availableRoomsMax
+      const avaliableRoomRange = [minRoomRange, maxRoomRange]
+
+      this.filterAvaliableRooms(avaliableRoomRange)
+      this.filterMoveInDate(moveInDate)
+
     },
 
     resetFilterStatus: function(){

@@ -27,16 +27,15 @@
       </v-flex>
       <v-flex shrink pt-1>
         <RoomFilter 
-          :filterAvaliableRooms = "filterAvaliableRooms"
-          :needClearFilter      = "needClearFilter"
-          :isLoading            = "isLoading"
+          :filterBungalows = "filterBungalows"
+          :needClearFilter = "needClearFilter"
         />
       </v-flex>
       <v-flex shrink pt-1>
         <DateFilter 
           :filterMoveInDate     = "filterMoveInDate"
+          :filterBungalows      = "filterBungalows"
           :needClearFilter      = "needClearFilter"
-          :isLoading            = "isLoading"
         />
       </v-flex>
     </v-layout>
@@ -60,9 +59,9 @@ export default {
   props: {
     selectedCity         : String,
     needClearFilter      : Boolean,
-    isLoading            : Boolean,
     filterAvaliableRooms : Function,
-    filterMoveInDate     : Function
+    filterMoveInDate     : Function,
+    filterBungalows      : Function,
   },
 
   data () {

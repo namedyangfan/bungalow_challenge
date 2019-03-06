@@ -1,5 +1,5 @@
 <template>
-  <v-menu ref="menu" offset-y content-class="filter-menu" light 
+  <v-menu ref="menu" v-model="menu" offset-y content-class="filter-menu" light 
     :close-on-content-click="false" max-width="400" nudge-bottom="10">
     <v-btn
       slot="activator"
@@ -9,11 +9,11 @@
     </v-btn>
     <v-flex>
       <v-date-picker
-        ref          = "picker"
         no-title
+        ref          = "picker"
         v-model      = "moveInDate"
         show-current = "2019-03-13"
-        v-on:change  = "updateMoveInDate"
+        @change      = "updateMoveInDate"
         :min         = "currentDate"
       >
       </v-date-picker>
@@ -35,6 +35,7 @@ export default {
 
   data () {
     return {
+      menu        : null,
       moveInDate  : null,
       currentDate : moment().format("YYYY-MM-DD"),
       filterMin   : this.$route.query.availableRoomsMin || 1,
@@ -61,7 +62,7 @@ export default {
       this.filterMoveInDate(this.moveInDate)
     }, 500),
 
-    updateMoveInDate: function(){
+    updateMoveInDate () {
       this.updateRouterParams()
       this.debounceFilterMoveInDate()
     },
@@ -70,10 +71,15 @@ export default {
   created() {
     this.getMoveInDate()
   },
+  
   watch: {
     needClearFilter: function(){
       this.moveInDate = this.currentDate
       this.updateRouterParams();
+    },
+
+    menu (val) {
+      val && this.$nextTick(() => (this.$refs.picker.activePicker = 'MONTH'))
     },
 
     isLoading: function(){

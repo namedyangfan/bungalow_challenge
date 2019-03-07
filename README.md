@@ -34,13 +34,16 @@ the server listen to [port 8080](http://localhost:8080`) by default
 
 ## Example
 #### overview
-<img src="https://i.ibb.co/BcZLgyb/Screen-Shot-2019-02-27-at-11-17-51-AM.png" width="500"/>
+<a href="http://tinypic.com?ref=2qstksx" target="_blank"><img src="http://i64.tinypic.com/2qstksx.png" border="0" alt="Image and video hosting by TinyPic"></a>
 
 #### searchable city filter
 <img src="https://i.ibb.co/pKYFPY8/Screen-Shot-2019-02-27-at-11-25-14-AM.png" width="200"/>
 
 #### room filter
-<img src="https://i.ibb.co/MpWT9r5/Screen-Shot-2019-02-27-at-11-25-25-AM.png" width="150"/>
+<img src="https://i.ibb.co/MpWT9r5/Screen-Shot-2019-02-27-at-11-25-25-AM.png" width="200"/>
+
+#### Move-in-Date filter
+<a href="http://tinypic.com?ref=2uy61py" target="_blank"><img src="http://i66.tinypic.com/2uy61py.png" border="0" alt="Image and video hosting by TinyPic" width="200"></a>
 
 ## API
 Two API routes were provided by [Bungalow](https://bungalow.com/)
@@ -59,7 +62,9 @@ https://fieldstone.bungalow.com/api/v1/listings/properties/?market__slug=seattle
  - responsive images: the right resolution for any screen size
  - lazy loading Images: reduce the website loading time
  - searchable city selector: easy to search for your city
- - available rooms filter: the filter setting is saved for city selector
+ - available rooms filter: filter the bungalows by its avliable rooms
+ - move-in-date filter: filter the bungalows by its ealist move-in-date
+ - router: save filter parameters 
 
 ## Assumptions
   1. User not using IE Browser for opening the site 
@@ -74,11 +79,19 @@ https://fieldstone.bungalow.com/api/v1/listings/properties/?market__slug=seattle
   10.  the developer of this project has the right to use and modify the Bungalow Icon 
 
 ## Questions
-        What is the preferred way to pass a function from parent component to child?
+        What is the preferred way to pass a function from parent component to child? (pass as a prop or an event?)
+
+        The `Homepage` component has children components of `AvaliableRoom` and `MoveInDate`, should the 
+        data of the filters handeled in the child components or the parent component. Does the parent component 
+        need to know the filter setting? Should we do the filtering in the backend instead?
+
         Will any data or prop change trigger its correspondent components to be re-rendered?
+
         Is there any way that we could set the maximum number of rooms dynamicly? Is this required?
+        
 ## Future Work
 1.  The height of the card is set as static, it would be nice to set it as a dynamic number
 2.  Add more filters
 3.  Display help text for reset filter (reset filter is rendered when no rooms matches the filter setting)
 4.  Add maps for displaying locations
+5   Navigation bar is not working for small screens
